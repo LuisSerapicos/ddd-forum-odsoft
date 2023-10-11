@@ -2,7 +2,7 @@ version: "3"
 
 services:
   mysql:
-    container_name: ddd_forum_mysql2
+    container_name: ddd_forum_mysql
     command: --default-authentication-plugin=mysql_native_password
     image: mysql:latest
     expose:
@@ -16,7 +16,7 @@ services:
       - MYSQL_PASSWORD=${DDD_FORUM_DB_PASS}
 
   adminer:  
-    container_name: ddd_forum_adminer2
+    container_name: ddd_forum_adminer
     image: adminer
     depends_on:
       - mysql
@@ -26,7 +26,7 @@ services:
       - 8080:8080
 
   redis:
-    container_name: ddd_forum_redis2
+    container_name: ddd_forum_redis
     image: redis:latest
     expose:
       - 6379
@@ -34,7 +34,7 @@ services:
       - 6379:6379
 
   app:
-    container_name: ddd_forum_app2
+    container_name: ddd_forum_app
     build:
       context: .
       dockerfile: Dockerfile
