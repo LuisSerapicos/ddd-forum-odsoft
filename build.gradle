@@ -1,3 +1,37 @@
 plugins {
     id "com.github.node-gradle.node" version "7.0.0"
 }
+
+node {
+    version = '12.22.12' // Specify your Node.js version
+    npmVersion = '6.14.16' // Specify your npm version
+    download = true
+}
+
+task runUnitTests(type: NodeTask) {
+    dependsOn npmInstall
+    workingDir = file('./')
+    script = file('./package.json') // Replace with the path to your unit test script
+    setArgs(['run', 'test -- --testPathIgnorePatterns=api'])
+}
+
+task generateUnitTestsCoverageReport(type: NodeTask) {
+    dependsOn runUnitTests
+    workingDir = file('./')
+    script = file('./package.json') // Replace with the path to your coverage script
+    setArgs(['run', 'testWithCoverage'])
+}
+
+task runAPITests(type: NodeTask) {
+    dependsOn npmInstall
+    workingDir = file('./')
+    script = file('./package.json') // Replace with the path to your API test script
+    setArgs(['run', 'test:api'])
+}
+
+task generateAPITestsCoverageReport(type: NodeTask) {
+    dependsOn runAPITests
+    workingDir = file('./')
+    script = file('./package.json') // Replace with the path to your API coverage script
+    setArgs(['run', 'test:api'])
+}
