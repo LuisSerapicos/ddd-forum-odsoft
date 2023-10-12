@@ -9,29 +9,20 @@ node {
 }
 
 task runUnitTests(type: NodeTask) {
-    dependsOn npmInstall
-    workingDir = file('./')
-    script = file('./package.json') // Replace with the path to your unit test script
-    setArgs(['run', 'test -- --testPathIgnorePatterns=api'])
+    script = file('./scripts/tests/runUnitTests.js')
 }
 
 task generateUnitTestsCoverageReport(type: NodeTask) {
     dependsOn runUnitTests
-    workingDir = file('./')
-    script = file('./package.json') // Replace with the path to your coverage script
-    setArgs(['run', 'testWithCoverage'])
+    script = file('./scripts/tests/generateUnitTestsCoverageReport.js')
 }
 
 task runAPITests(type: NodeTask) {
     dependsOn npmInstall
-    workingDir = file('./')
-    script = file('./package.json') // Replace with the path to your API test script
-    setArgs(['run', 'test:api'])
+    script = file('./scripts/tests/runAPITests.js')
 }
 
 task generateAPITestsCoverageReport(type: NodeTask) {
     dependsOn runAPITests
-    workingDir = file('./')
-    script = file('./package.json') // Replace with the path to your API coverage script
-    setArgs(['run', 'test:api'])
+    script = file('./scripts/tests/generateAPITestsCoverageReport.js')
 }
