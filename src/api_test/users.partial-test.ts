@@ -13,7 +13,7 @@ const log = new Logger({
   minLevel: config.environmnetConfig.log_level,
   dateTimeTimezone:
     config.environmnetConfig.time_zone ||
-    Intl.DateTimeFormat().resolvedOptions().timeZone,
+    Intl.DateTimeFormat().resolvedOptions().timeZone
 });
 
 let users: Users;
