@@ -1,9 +1,7 @@
 pipeline {
     agent any
 
-    stages {
-        def isWindows = isUnix() ? false : true
-               
+    stages {              
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
@@ -14,6 +12,7 @@ pipeline {
         stage('Set Up Docker Containers') {
             steps {
                 script {
+                    def isWindows = isUnix() ? false : true
                     if(isWindows) {
                         bat 'cp .env.template .env'
                         bat 'docker-compose up -d' // Start the Docker containers defined in docker-compose.yml
@@ -29,6 +28,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
+                    def isWindows = isUnix() ? false : true
                     if(isWindows) {
                         bat 'npm run setup:dev' // Setup the project in dev mode
                         bat 'nohup npm run start:both &'
@@ -47,6 +47,7 @@ pipeline {
     post {
         always {
             script {
+                def isWindows = isUnix() ? false : true
                 if(isWindows) {
                     bat 'docker-compose down' // Stop and remove the Docker containers
                 }
