@@ -30,14 +30,22 @@ pipeline {
                 script {
                     def isWindows = isUnix() ? false : true
                     if(isWindows) {
+                        bat 'npm run build' //Build the project
                         bat 'npm run setup:dev' // Setup the project in dev mode
-                        bat 'nohup npm run start:both &'
-                        bat 'sleep 180 && npm run test' // Run back/front end and after that run a test
+                        bat 'nohup npm run start:both &' // Run back/front end
+                        bat 'sleep 180 && npm run test' // Run a test
+                        bat 'npm run testWithCoverage'
+                        bat 'npm run test:dev'
+                        bat 'npm run test:api'
                     }
                     else {
+                        sh 'npm run build' //Build the project
                         sh 'npm run setup:dev' // Setup the project in dev mode
-                        sh 'nohup npm run start:both &'
-                        sh 'sleep 180 && npm run test' // Run back/front end and after that run a test
+                        sh 'nohup npm run start:both &' // Run back/front end
+                        sh 'sleep 180 && npm run test' // Run a test
+                        sh 'npm run testWithCoverage'
+                        sh 'npm run test:dev'
+                        sh 'npm run test:api'
                     }
                 }
             }
