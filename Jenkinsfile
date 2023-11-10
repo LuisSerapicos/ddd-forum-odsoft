@@ -62,6 +62,15 @@ pipeline {
                 else {
                      sh 'docker-compose down' // Stop and remove the Docker containers
                 }
+
+                // Publish HTML reports
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: './coverage/',
+                    reportFiles: 'index.html'
+                ])
             }
         }
     }
