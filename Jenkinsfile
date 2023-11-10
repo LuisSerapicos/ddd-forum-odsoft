@@ -2,26 +2,8 @@ pipeline {
     agent any
 
     stages {
-        stage('Platform Check') {
-            steps {
-                script {
-                    def isWindows = isUnix() ? false : true
-
-                    if (isWindows) {
-                        echo "Running on Windows"
-                        // Windows-specific commands
-                        bat 'echo Hello from Windows'
-                        // Add your Windows commands here
-                    } else {
-                        echo "Running on Linux"
-                        // Linux-specific commands
-                        sh 'echo Hello from Linux'
-                        // Add your Linux commands here
-                    }
-                }
-            }
-        }
-        
+        def isWindows = isUnix() ? false : true
+               
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
@@ -32,8 +14,14 @@ pipeline {
         stage('Set Up Docker Containers') {
             steps {
                 script {
-                    sh 'cp .env.template .env'
-                    sh 'docker-compose up -d' // Start the Docker containers defined in docker-compose.yml
+                    if(isWindows) {
+                        bat 'cp .env.template .env'
+                        bat 'docker-compose up -d' // Start the Docker containers defined in docker-compose.yml
+                    }
+                    else {
+                        sh 'cp .env.template .env'
+                        sh 'docker-compose up -d' // Start the Docker containers defined in docker-compose.yml
+                    }
                 }
             }
         }
@@ -41,9 +29,16 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    sh 'npm run setup:dev' // Setup the project in dev mode
-                    sh 'nohup npm run start:both &'
-                    sh 'sleep 180 && npm run test' // Run back/front end and after that run a test
+                    if(isWindows) {
+                        bat 'npm run setup:dev' // Setup the project in dev mode
+                        bat 'nohup npm run start:both &'
+                        bat 'sleep 180 && npm run test' // Run back/front end and after that run a test
+                    }
+                    else {
+                        sh 'npm run setup:dev' // Setup the project in dev mode
+                        sh 'nohup npm run start:both &'
+                        sh 'sleep 180 && npm run test' // Run back/front end and after that run a test
+                    }
                 }
             }
         }
@@ -52,7 +47,12 @@ pipeline {
     post {
         always {
             script {
-                sh 'docker-compose down' // Stop and remove the Docker containers
+                if(isWindows) {
+                    bat 'docker-compose down' // Stop and remove the Docker containers
+                }
+                else {
+                     sh 'docker-compose down' // Stop and remove the Docker containers
+                }
             }
         }
     }
