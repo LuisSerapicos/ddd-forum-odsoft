@@ -2,6 +2,26 @@ pipeline {
     agent any
 
     stages {
+        stage('Platform Check') {
+            steps {
+                script {
+                    def isWindows = isUnix() ? false : true
+
+                    if (isWindows) {
+                        echo "Running on Windows"
+                        // Windows-specific commands
+                        bat 'echo Hello from Windows'
+                        // Add your Windows commands here
+                    } else {
+                        echo "Running on Linux"
+                        // Linux-specific commands
+                        sh 'echo Hello from Linux'
+                        // Add your Linux commands here
+                    }
+                }
+            }
+        }
+        
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
