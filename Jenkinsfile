@@ -32,8 +32,8 @@ pipeline {
                     if(isWindows) {
                         bat 'npm run build' //Build the project
                         bat 'npm run setup:dev' // Setup the project in dev mode
-                        bat 'nohup npm run start:both &' // Run back/front end
-                        bat 'sleep 180 && npm run test' // Run a test
+                        bat 'start /B npm run start:both ' // Run back/front end
+                        bat 'timeout /t 180 > nul && npm run test' // Run a test
                         bat 'npm run testWithCoverage'
                         bat 'npm run test:dev'
                         bat 'npm run test:api'
