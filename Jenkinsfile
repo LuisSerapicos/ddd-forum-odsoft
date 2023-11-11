@@ -58,7 +58,7 @@ pipeline {
                 }
 
                 // Publish HTML reports
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'Jest Report', reportTitles: '', useWrapperFileDirectly: true])
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'Jest Report', reportTitles: '', useWrapperFileDirectly: true])
             }
         }
     }
