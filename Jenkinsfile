@@ -34,7 +34,7 @@ pipeline {
                         bat 'npm run build' //Build the project
                         bat 'npm run setup:dev' // Setup the project in dev mode
                         bat 'start /B npm run start:both ' // Run back/front end
-                        bat 'timeout /t 180 > nul && npm run test' // Run a test
+                        bat 'ping /n 180 localhost > nul && npm run test' // Run a test
                         //bat 'npm run test'
                         //bat 'npm run testWithCoverage'
                         //bat 'npm run test:dev'
