@@ -25,6 +25,12 @@ pipeline {
             }
         }
 
+        stage('Archive HTML Report') {
+            steps {
+                archiveArtifacts 'coverage/index.html'
+            }
+        }
+
         stage('Run Tests') {
             steps {
                 script {
@@ -42,12 +48,6 @@ pipeline {
                         sh 'sleep 180 && npm run test && npm run testWithCoverage && npm run test:dev && npm run test:api' // Run the tests
                     }
                 }
-            }
-        }
-
-        stage('Archive HTML Report') {
-            steps {
-                archiveArtifacts 'coverage/index.html'
             }
         }
     }
