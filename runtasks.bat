@@ -1,5 +1,5 @@
 @echo off
-timeout /t 180 /nobreak >nul
+timeout /t 180 /nobreak
 npm run test
 npm run testWithCoverage
 npm run test:dev
