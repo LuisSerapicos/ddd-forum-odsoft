@@ -61,10 +61,11 @@ pipeline {
                 publishHTML(target: [
                     allowMissing: false,
                     alwaysLinkToLastBuild: false,
-                    keepAll: true,
+                    keepAll: false,
                     reportDir: 'coverage',
                     reportFiles: 'index.html',
-                    reportName: 'Jest Report'
+                    reportName: 'Jest Report',
+                    reportTitles: 'The Report'
                 ])
             }
         }
