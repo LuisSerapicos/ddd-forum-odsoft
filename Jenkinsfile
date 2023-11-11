@@ -14,7 +14,7 @@ pipeline {
                 script {
                     def isWindows = isUnix() ? false : true
                     if(isWindows) {
-                        bat 'cp .env.template .env'
+                        bat 'copy .env.template .env'
                         bat 'docker-compose up -d' // Start the Docker containers defined in docker-compose.yml
                     }
                     else {
