@@ -30,24 +30,16 @@ pipeline {
                 script {
                     def isWindows = isUnix() ? false : true
                     if(isWindows) {
-                        echo "The value of isWindows is: ${isWindows}"
                         bat 'npm run build' //Build the project
                         bat 'npm run setup:dev' // Setup the project in dev mode
                         bat 'start /B npm run start:both ' // Run back/front end
-                        bat 'ping /n 180 localhost > nul && npm run test' // Run a test
-                        //bat 'npm run test'
-                        //bat 'npm run testWithCoverage'
-                        //bat 'npm run test:dev'
-                        //bat 'npm run test:api'
+                        bat 'ping /n 180 localhost > nul && npm run test && npm run testWithCoverage && npm run test:dev && npm run test:api' // Run the tests
                     }
                     else {
                         sh 'npm run build' //Build the project
                         sh 'npm run setup:dev' // Setup the project in dev mode
                         sh 'nohup npm run start:both &' // Run back/front end
-                        sh 'sleep 180 && npm run test' // Run a test
-                        sh 'npm run testWithCoverage'
-                        sh 'npm run test:dev'
-                        sh 'npm run test:api'
+                        sh 'sleep 180 && npm run test && npm run testWithCoverage && npm run test:dev && npm run test:api' // Run the tests
                     }
                 }
             }
