@@ -30,6 +30,7 @@ pipeline {
                 script {
                     def isWindows = isUnix() ? false : true
                     if(isWindows) {
+                        echo "The value of isWindows is: ${isWindows}"
                         bat 'npm run build' //Build the project
                         bat 'npm run setup:dev' // Setup the project in dev mode
                         bat 'start /B npm run start:both ' // Run back/front end
