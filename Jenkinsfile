@@ -62,8 +62,9 @@ pipeline {
                     allowMissing: false,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
-                    reportDir: './coverage/',
-                    reportFiles: 'index.html'
+                    reportDir: 'coverage',
+                    reportFiles: 'index.html',
+                    reportName: 'Jest Report'
                 ])
             }
         }
