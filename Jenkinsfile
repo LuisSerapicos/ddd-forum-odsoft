@@ -57,7 +57,7 @@ pipeline {
                 }
 
                 // Publish HTML reports
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '', reportFiles: 'test-report.html, coverage/index.html', reportName: 'Jest Coverage Report', reportTitles: 'Jest Coverage, Test Report', useWrapperFileDirectly: true])
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '', reportFiles: 'test-report.html, coverage/index.html', reportName: 'Jest Coverage Report', reportTitles: 'Test Report, Jest Coverage', useWrapperFileDirectly: true])
 
                 archiveArtifacts 'coverage/index.html'
                 archiveArtifacts 'test-report.html'
