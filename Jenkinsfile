@@ -27,7 +27,7 @@ pipeline {
 
         stage('Archive HTML Report') {
             steps {
-                archiveArtifacts 'coverage/index.html'
+                archiveArtifacts 'coverage'
             }
         }
 
