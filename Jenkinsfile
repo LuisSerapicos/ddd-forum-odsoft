@@ -60,7 +60,7 @@ pipeline {
                 // Publish HTML reports
                 publishHTML(target: [
                     allowMissing: false,
-                    alwaysLinkToLastBuild: true,
+                    alwaysLinkToLastBuild: false,
                     keepAll: true,
                     reportDir: 'coverage',
                     reportFiles: 'index.html',
