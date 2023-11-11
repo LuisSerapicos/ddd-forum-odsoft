@@ -57,8 +57,8 @@ pipeline {
                 }
 
                 // Publish HTML reports
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'Jest Coverage Report', reportTitles: 'Jest Coverage', useWrapperFileDirectly: true])
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '', reportFiles: 'test-report.html', reportName: 'Jest Test Report', reportTitles: 'Jest Test', useWrapperFileDirectly: true])
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '', reportFiles: 'index.html, test-report.html', reportName: 'Jest Coverage Report', reportTitles: 'Jest Coverage', useWrapperFileDirectly: true])
+                //publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '', reportFiles: 'test-report.html', reportName: 'Jest Test Report', reportTitles: 'Jest Test', useWrapperFileDirectly: true])
 
                 archiveArtifacts 'coverage/index.html'
                 archiveArtifacts 'test-report.html'
