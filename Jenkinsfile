@@ -60,8 +60,8 @@ pipeline {
                 // Publish HTML reports
                 publishHTML(target: [
                     allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
                     reportDir: 'coverage',
                     reportFiles: 'index.html',
                     reportName: 'Jest Report',
