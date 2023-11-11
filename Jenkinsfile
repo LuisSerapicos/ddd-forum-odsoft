@@ -47,22 +47,19 @@ pipeline {
 
     post {
         always {
-            stage('Archive HTML Report') {
-                script {
-                    def isWindows = isUnix() ? false : true
-                    if(isWindows) {
-                        bat 'docker-compose down' // Stop and remove the Docker containers
-                    }
-                    else {
-                         sh 'docker-compose down' // Stop and remove the Docker containers
-                    }
-    
-                    // Publish HTML reports
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'Jest Report', reportTitles: '', useWrapperFileDirectly: true])
+            script {
+                def isWindows = isUnix() ? false : true
+                if(isWindows) {
+                    bat 'docker-compose down' // Stop and remove the Docker containers
                 }
-                steps {
-                    archiveArtifacts 'coverage/index.html'
+                else {
+                     sh 'docker-compose down' // Stop and remove the Docker containers
                 }
+
+                // Publish HTML reports
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'Jest Report', reportTitles: '', useWrapperFileDirectly: true])
+
+                archiveArtifacts 'coverage/index.html'
             }
         }
     }
