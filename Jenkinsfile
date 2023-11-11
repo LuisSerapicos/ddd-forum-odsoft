@@ -34,7 +34,15 @@ pipeline {
                         bat 'npm run setup:dev' // Setup the project in dev mode
                         bat 'start /B npm run start:both ' // Run back/front end
                         //bat 'ping /n 1 /w 180000 localhost >nul & npm run test & npm run testWithCoverage & npm run test:dev & npm run test:api' // Run a test
-                        bat 'ping /n 1 /w 180000 localhost > nul'
+                        //bat 'ping /n 1 /w 180000 localhost > nul'
+                        @echo off
+                        REM Delay Loop
+                        setlocal EnableDelayedExpansion
+                        set /a "count=180"
+                        for /l %%i in (!count!,-1,1) do (
+                            timeout /t 1 >nul
+                        )
+                        endlocal
                         bat 'npm run test'
                         bat 'npm run testWithCoverage'
                         bat 'npm run test:dev'
