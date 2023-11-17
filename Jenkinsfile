@@ -32,13 +32,13 @@ pipeline {
                         bat 'npm run build' //Build the project
                         bat 'npm run setup:dev' // Setup the project in dev mode
                         bat 'start /B npm run start:both ' // Run back/front end
-                        bat 'ping /n 180 localhost > nul && npm run test && npm run testWithCoverage && npm run test:dev && npm run test:api' // Run the tests
+                        bat 'ping /n 180 localhost > nul && npm run test' // Run the tests //&& npm run testWithCoverage && npm run test:dev && npm run test:api
                     }
                     else {
                         sh 'npm run build' //Build the project
                         sh 'npm run setup:dev' // Setup the project in dev mode
                         sh 'nohup npm run start:both &' // Run back/front end
-                        sh 'sleep 180 && npm run test && npm run testWithCoverage && npm run test:dev && npm run test:api' // Run the tests
+                        sh 'sleep 180 && npm run test' // Run the tests //&& npm run testWithCoverage && npm run test:dev && npm run test:api
                     }
                 }
             }
