@@ -61,6 +61,14 @@ pipeline {
                                                                                                                                             //, coverage/index.html                                        //, Jest Coverage
                 //archiveArtifacts 'coverage/index.html'
                 archiveArtifacts 'test-report.html'
+
+                //GitHub tag build_number_status
+                def BUILD_STATUS = currentBuild.result == 'SUCCESS' ? 'Passed' : 'Failed'
+
+                // Tag the repository
+                def TAG = "Build#${BUILD_NUMBER}-${BUILD_STATUS}"
+                sh "git tag -a ${TAG} -m 'Jenkins Build ${BUILD_NUMBER} ${BUILD_STATUS}'"
+                sh "git push origin ${TAG}"
             }
         }
     }
