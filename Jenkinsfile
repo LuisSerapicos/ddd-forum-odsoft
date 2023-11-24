@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Non-Functional Tests') {
+        /*stage('Non-Functional Tests') {
             steps {
                 script {
                     // Execute non-functional tests
@@ -14,14 +14,7 @@ pipeline {
                     sh "${jmeterCommand} -n -t HTTPRequest.jmx -l JMeterResults.jtl"
                 }
             }
-        }
-
-        stage('Publish Results') {
-            steps {
-                // Publish non-functional test results
-                perfReport 'JMeterResults.jtl'
-            }
-        }
+        }*/
         
         stage('Build') {
             steps {
@@ -60,6 +53,14 @@ pipeline {
                         sh 'npm run setup:dev' // Setup the project in dev mode
                         sh 'nohup npm run start:both &' // Run back/front end
                         sh 'sleep 180 && npm run test' // Run the tests //&& npm run testWithCoverage && npm run test:dev && npm run test:api
+                        
+                        // Execute non-functional tests
+                        // Use JMeter or similar tool
+                        def jmeterHome = "C:/Users/'Luis Serapicos'/Downloads/apache-jmeter-5.6.2/apache-jmeter-5.6.2/"  // Update this with the actual path
+                        def jmeterCommand = "${jmeterHome}/bin/jmeter.bat"
+                        
+                        // Execute non-functional tests
+                        sh "${jmeterCommand} -n -t HTTPRequest.jmx -l JMeterResults.jtl"
                     }
                 }
             }
@@ -90,6 +91,9 @@ pipeline {
                 def TAG = "Build#${BUILD_NUMBER}-${BUILD_STATUS}"
                 sh "git tag -a ${TAG} -m 'Jenkins Build ${BUILD_NUMBER} ${BUILD_STATUS}'"
                 sh "git push origin ${TAG}"
+
+                // Publish non-functional test results
+                perfReport 'JMeterResults.jtl'
             }
         }
     }
