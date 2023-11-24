@@ -1,7 +1,17 @@
 pipeline {
     agent any
 
-    stages {              
+    stages {
+        stage('Non-Functional Tests') {
+            steps {
+                script {
+                    // Execute non-functional tests
+                    // Use JMeter or similar tool
+                    sh 'jmeter -n -t HTTP Request.jmx -l results.jtl'
+                }
+            }
+        }
+        
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
