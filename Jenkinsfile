@@ -7,7 +7,7 @@ pipeline {
                 script {
                     // Execute non-functional tests
                     // Use JMeter or similar tool
-                    def jmeterHome = "C:/Users/Luis Serapicos/Downloads/apache-jmeter-5.6.2/apache-jmeter-5.6.2/"  // Update this with the actual path
+                    def jmeterHome = "C:/Users/'Luis Serapicos'/Downloads/apache-jmeter-5.6.2/apache-jmeter-5.6.2/"  // Update this with the actual path
                     def jmeterCommand = "${jmeterHome}/bin/jmeter.bat"
                     
                     // Execute non-functional tests
