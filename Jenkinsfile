@@ -11,6 +11,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Publish Results') {
+            steps {
+                // Publish non-functional test results
+                archiveArtifacts 'results.jtl'
+            }
+        }
         
         stage('Build') {
             steps {
