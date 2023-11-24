@@ -19,7 +19,7 @@ pipeline {
         stage('Publish Results') {
             steps {
                 // Publish non-functional test results
-                archiveArtifacts 'JMeterResults.jtl'
+                perfReport 'JMeterResults.jtl'
             }
         }
         
