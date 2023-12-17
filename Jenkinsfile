@@ -53,7 +53,9 @@ pipeline {
                         bat 'npm run setup:dev' // Setup the project in dev mode
                         bat 'start /B npm run start:both ' // Run back/front end
                         bat 'ping /n 180 localhost > nul && npm run test' // Run the tests //&& npm run testWithCoverage && npm run test:dev && npm run test:api
-                        sh "${jmeterCommand} -n -t HTTPRequest.jmx -l JMeterResults.jtl"
+                        sh "${jmeterCommand} -n -t singleRequest.jmx -l JMeterSingleResults.jtl"
+                        sh "${jmeterCommand} -n -t smallRequests.jmx -l JMeterSmallResults.jtl"
+                        sh "${jmeterCommand} -n -t BigRequests.jmx -l JMeterBigResults.jtl"
                     }
                     else {
                         // Execute non-functional tests
