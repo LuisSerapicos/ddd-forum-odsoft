@@ -42,11 +42,17 @@ pipeline {
             steps {
                 script {
                     def isWindows = isUnix() ? false : true
+
+                    // Execute non-functional tests
+                    // Use JMeter or similar tool
+                    def jmeterHome = "C:/Users/'Luis Serapicos'/Downloads/apache-jmeter-5.6.2/apache-jmeter-5.6.2/"  // Update this with the actual path
+                    def jmeterCommand = "${jmeterHome}/bin/jmeter.bat"
+                    
                     if(isWindows) {
                         bat 'npm run build' //Build the project
                         bat 'npm run setup:dev' // Setup the project in dev mode
                         bat 'start /B npm run start:both ' // Run back/front end
-                        bat 'ping /n 180 localhost > nul && npm run test' // Run the tests //&& npm run testWithCoverage && npm run test:dev && npm run test:api
+                        bat 'ping /n 180 localhost > nul && npm run test && ${jmeterCommand} -n -t HTTPRequest.jmx -l JMeterResults.jtl' // Run the tests //&& npm run testWithCoverage && npm run test:dev && npm run test:api
                     }
                     else {
                         // Execute non-functional tests
