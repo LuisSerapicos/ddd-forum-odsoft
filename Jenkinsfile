@@ -53,7 +53,7 @@ pipeline {
                         bat 'npm run setup:dev' // Setup the project in dev mode
                         bat 'start /B npm run start:both ' // Run back/front end
                         bat 'ping /n 180 localhost > nul && npm run test' // Run the tests //&& npm run testWithCoverage && npm run test:dev && npm run test:api
-                        sh "${jmeterCommand} -n -t singleRequest.jmx -l JMeterSingleResults.jtl"
+                        sh "${jmeterCommand} -n -t singleRequest.jmx -l JMeterSingleResult.jtl"
                         sh "${jmeterCommand} -n -t smallRequests.jmx -l JMeterSmallResults.jtl"
                         sh "${jmeterCommand} -n -t BigRequests.jmx -l JMeterBigResults.jtl"
                     }
@@ -87,10 +87,10 @@ pipeline {
                 }
 
                 // Publish HTML reports
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '', reportFiles: 'test-report.html', reportName: 'Jest Coverage Report', reportTitles: 'Test Report', useWrapperFileDirectly: true])
+                //publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '', reportFiles: 'test-report.html', reportName: 'Jest Coverage Report', reportTitles: 'Test Report', useWrapperFileDirectly: true])
                                                                                                                                             //, coverage/index.html                                        //, Jest Coverage
                 //archiveArtifacts 'coverage/index.html'
-                archiveArtifacts 'test-report.html'
+                //archiveArtifacts 'test-report.html'
 
                 //GitHub tag build_number_status
                 def BUILD_STATUS = currentBuild.result == 'SUCCESS' ? 'Passed' : 'Failed'
@@ -101,8 +101,12 @@ pipeline {
                 sh "git push origin ${TAG}"
 
                 // Publish non-functional test results
-                perfReport 'JMeterResults.jtl'
-                archiveArtifacts 'JMeterResults.jtl'
+                perfReport 'JMeterSingleResult.jtl'
+                perfReport 'JMeterSmallResults.jtl'
+                perfReport 'JMeterBigResults.jtl'
+                archiveArtifacts 'JMeterSingleResult.jtl'
+                archiveArtifacts 'JMeterSmallResults.jtl'
+                archiveArtifacts 'JMeterBigResults.jtl'
             }
         }
     }
