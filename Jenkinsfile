@@ -49,18 +49,17 @@ pipeline {
                         bat 'ping /n 180 localhost > nul && npm run test' // Run the tests //&& npm run testWithCoverage && npm run test:dev && npm run test:api
                     }
                     else {
-                        sh 'npm run build' //Build the project
-                        sh 'npm run setup:dev' // Setup the project in dev mode
-                        sh 'nohup npm run start:both &' // Run back/front end
-                        sh 'sleep 180 && npm run test' // Run the tests //&& npm run testWithCoverage && npm run test:dev && npm run test:api
-                        
                         // Execute non-functional tests
                         // Use JMeter or similar tool
                         def jmeterHome = "C:/Users/'Luis Serapicos'/Downloads/apache-jmeter-5.6.2/apache-jmeter-5.6.2/"  // Update this with the actual path
                         def jmeterCommand = "${jmeterHome}/bin/jmeter.bat"
                         
+                        sh 'npm run build' //Build the project
+                        sh 'npm run setup:dev' // Setup the project in dev mode
+                        sh 'nohup npm run start:both &' // Run back/front end
+                        sh 'sleep 180 && npm run test && ${jmeterCommand} -n -t HTTPRequest.jmx -l JMeterResults.jtl' // Run the tests //&& npm run testWithCoverage && npm run test:dev && npm run test:api                     
                         // Execute non-functional tests
-                        sh "${jmeterCommand} -n -t HTTPRequest.jmx -l JMeterResults.jtl"
+                        //sh "${jmeterCommand} -n -t HTTPRequest.jmx -l JMeterResults.jtl"
                     }
                 }
             }
