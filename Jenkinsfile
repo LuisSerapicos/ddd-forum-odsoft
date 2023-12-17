@@ -57,8 +57,8 @@ pipeline {
                     else {
                         // Execute non-functional tests
                         // Use JMeter or similar tool
-                        def jmeterHome = "C:/Users/'Luis Serapicos'/Downloads/apache-jmeter-5.6.2/apache-jmeter-5.6.2/"  // Update this with the actual path
-                        def jmeterCommand = "${jmeterHome}/bin/jmeter.bat"
+                        //def jmeterHome = "C:/Users/'Luis Serapicos'/Downloads/apache-jmeter-5.6.2/apache-jmeter-5.6.2/"  // Update this with the actual path
+                        //def jmeterCommand = "${jmeterHome}/bin/jmeter.bat"
                         
                         sh 'npm run build' //Build the project
                         sh 'npm run setup:dev' // Setup the project in dev mode
