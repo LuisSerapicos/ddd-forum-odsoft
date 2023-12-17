@@ -94,6 +94,7 @@ pipeline {
 
                 // Publish non-functional test results
                 perfReport 'JMeterResults.jtl'
+                archiveArtifacts 'JMeterResults.jtl'
             }
         }
     }
